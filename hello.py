@@ -2,7 +2,6 @@ import os
 from flask import Flask, render_template, request
 
 from flask_bootstrap import Bootstrap
-from flask.ext import uploads
 
 from sklearn import datasets
 
