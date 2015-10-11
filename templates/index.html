@@ -14,17 +14,8 @@
       </form>
     </div>
 
-    <div class="jumbotron">
-      The first few lines of your data look like this.
-      <pre>{{ preview }}</pre>
-    </div>
-
-    <div class="jumbotron">
-      Mean
-      <pre>{{ mean }}</pre>
-      Median
-      <pre>{{ median }}</pre>
-    </div>
+    {% include 'preview.html' %}
+    {% include 'middle.html' %}
 
   </div>
 {%- endblock %}
