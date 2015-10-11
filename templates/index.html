@@ -2,6 +2,7 @@
 
 {% block content %}
   <div class="container">
+
     <div class="jumbotron">
       <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
         <label class="btn btn-default" for="my-file-selector">
@@ -12,8 +13,17 @@
         <button type="submit" class="btn btn-primary">Upload</button>
       </form>
     </div>
+
     <div class="jumbotron">
       <pre>{{ data }}</pre>
     </div>
+
+    <div class="jumbotron">
+      Mean
+      <pre>{{ mean }}</pre>
+      Median
+      <pre>{{ median }}</pre>
+    </div>
+
   </div>
 {%- endblock %}
