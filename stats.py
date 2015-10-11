@@ -8,5 +8,10 @@ def middle(data, results):
         classes=['table', 'table-condensed', 'table-bordered', 'table-striped'])
 
 def variance(data, results):
-    results['variance'] = data.var().to_frame().T.to_html(index=False,
+    data_variance = data.var()
+    results['variance'] = data_variance.to_frame().T.to_html(index=False,
+        classes=['table', 'table-condensed', 'table-bordered', 'table-striped'])
+
+    results['sorted_variance'] = data_variance.sort_values().to_frame().T.to_html(
+        index=False,
         classes=['table', 'table-condensed', 'table-bordered', 'table-striped'])
