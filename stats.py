@@ -15,3 +15,6 @@ def variance(data, results):
     results['sorted_variance'] = data_variance.sort_values().to_frame().T.to_html(
         index=False,
         classes=['table', 'table-condensed', 'table-bordered', 'table-striped'])
+
+    results['covariance'] = data.cov().to_html(
+        classes=['table', 'table-condensed', 'table-bordered', 'table-striped'])
