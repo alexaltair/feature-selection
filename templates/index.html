@@ -4,8 +4,12 @@
   <div class="container">
     <div class="jumbotron">
       <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
-        <input class="file" type="file" name="file">
-        <button type="submit" class="btn btn-default">Upload</button>
+        <label class="btn btn-default" for="my-file-selector">
+          <input type="file" name="file" id="my-file-selector" style="display:none;" onchange='$("#upload-file-info").html($(this).val().replace("C:\\fakepath\\", ""));'>
+          Choose file
+        </label>
+        <span class='label label-info' id="upload-file-info"></span>
+        <button type="submit" class="btn btn-primary">Upload</button>
       </form>
     </div>
     <div class="jumbotron">
