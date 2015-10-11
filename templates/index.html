@@ -25,6 +25,9 @@
     {% if median is defined %}
       {% include 'median.html' %}
     {% endif %}
+    {% if variance is defined %}
+      {% include 'variance.html' %}
+    {% endif %}
 
   </div>
 {%- endblock %}
