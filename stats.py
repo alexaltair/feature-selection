@@ -1,5 +1,6 @@
 from pandas import Series, DataFrame
 from sklearn.decomposition import PCA
+from sklearn.cluster import MeanShift, DBSCAN
 
 def middle(data, results):
     results['mean'] = data.mean().to_frame().T.to_html(index=False,
@@ -29,3 +30,11 @@ def pca(data, results):
 
     results['pca'] = remaining_variance.T.to_html(header=False,
         classes=['table', 'table-condensed', 'table-bordered'])
+
+def mean_shift(data, results):
+    labels = MeanShift().fit(data.values).labels_
+    results['mean_shift'] = len(set(labels)) - (1 if -1 in labels else 0)
+
+def dbscan(data, results):
+    labels = DBSCAN().fit(data.values).labels_
+    results['dbscan'] = len(set(labels)) - (1 if -1 in labels else 0)

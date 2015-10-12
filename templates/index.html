@@ -38,6 +38,9 @@
     {% if pca is defined %}
       {% include 'pca.html' %}
     {% endif %}
+    {% if dbscan is defined %}
+      {% include 'clustering.html' %}
+    {% endif %}
 
   </div>
 {%- endblock %}
