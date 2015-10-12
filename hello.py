@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 import numpy
 import pandas
 from sklearn import datasets
-from stats import middle, variance
+from stats import middle, variance, pca
 from utils import head
 
 app = Flask(__name__)
@@ -24,6 +24,7 @@ def upload():
     head(data, results)
     middle(data, results)
     variance(data, results)
+    pca(data, results)
     return render_template('index.html', **results)
 
 if __name__ == "__main__":
