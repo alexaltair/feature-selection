@@ -18,7 +18,11 @@ def hello():
 @app.route('/results', methods=['GET', 'POST'])
 def upload():
     data_file = request.files['file']
-    data = pandas.read_csv(data_file)
+    if request.values['header'] == 'True':
+        data = pandas.read_csv(data_file)
+    else:
+        data = pandas.read_csv(data_file, header=None)
+
 
     results = {}
     head(data, results)
