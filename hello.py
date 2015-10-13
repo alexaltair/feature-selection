@@ -24,9 +24,19 @@ def upload():
     head(data, results)
     middle(data, results)
     variance(data, results)
-    pca(data, results)
-    mean_shift(data, results)
-    dbscan(data, results)
+    try:
+        pca(data, results)
+    except ValueError:  # Could be "Array contains NaN or infinity."
+        pass
+    try:
+        mean_shift(data, results)
+    except ValueError:  # Could be "Array contains NaN or infinity."
+        pass
+    try:
+        dbscan(data, results)
+    except ValueError:  # Could be "Array contains NaN or infinity."
+        pass
+
     return render_template('index.html', **results)
 
 if __name__ == "__main__":
