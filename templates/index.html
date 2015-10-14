@@ -31,24 +31,82 @@
       <span class='label label-info' id="upload-file-info"></span>
     </div>
 
-    {% if preview is defined %}
-      {% include 'preview.html' %}
-    {% endif %}
-    {% if mean is defined %}
-      {% include 'mean.html' %}
-    {% endif %}
-    {% if median is defined %}
-      {% include 'median.html' %}
-    {% endif %}
-    {% if variance is defined %}
-      {% include 'variance.html' %}
-    {% endif %}
-    {% if pca is defined %}
-      {% include 'pca.html' %}
-    {% endif %}
-    {% if dbscan is defined %}
-      {% include 'clustering.html' %}
-    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" href="#collapseSummary" aria-expanded="false" aria-controls="collapseSummary">
+            Summary
+          </a>
+        </h4>
+      </div>
+      <div class="panel-collapse collapse" role="tabpanel" id="collapseSummary">
+        <div class="panel-body">
+          {% if preview is defined %}
+            {% include 'preview.html' %}
+          {% endif %}
+          {% if mean is defined %}
+            {% include 'mean.html' %}
+          {% endif %}
+          {% if median is defined %}
+            {% include 'median.html' %}
+          {% endif %}
+          {% if sorted_variance is defined %}
+            {% include 'variance.html' %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" href="#collapseFeatureSelect" aria-expanded="false" aria-controls="collapseFeatureSelect">
+            Feature selection
+          </a>
+        </h4>
+      </div>
+      <div class="panel-collapse collapse" role="tabpanel" id="collapseFeatureSelect">
+        <div class="panel-body">
+          {% if sorted_variance is defined %}
+            {% include 'select_variance.html' %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" href="#collapseDimension" aria-expanded="false" aria-controls="collapseDimension">
+            Dimensionality Reduction
+          </a>
+        </h4>
+      </div>
+      <div class="panel-collapse collapse" role="tabpanel" id="collapseDimension">
+        <div class="panel-body">
+          {% if pca is defined %}
+            {% include 'pca.html' %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" href="#collapseClustering" aria-expanded="false" aria-controls="collapseClustering">
+            Clustering
+          </a>
+        </h4>
+      </div>
+      <div class="panel-collapse collapse" role="tabpanel" id="collapseClustering">
+        <div class="panel-body">
+          {% if dbscan is defined %}
+            {% include 'clustering.html' %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
 
   </div>
 {%- endblock %}

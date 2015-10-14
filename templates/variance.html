@@ -4,23 +4,3 @@
     {{ variance | safe }}
   </div>
 </div>
-
-<div class="panel panel-success">
-  <div class="panel-heading">
-    Sorted by ascending variance.
-  </div>
-  <div class="panel-body" style="overflow-x:auto;">
-    <p>Features with low variance are less likely to contain useful information. Consider removing them, especially if they have zero variance. This is less likely to be true if your features are on different scales; for example, if one features is in years, and another feature is in millimeters.</p>
-    {{ sorted_variance | safe }}
-  </div>
-</div>
-
-<div class="panel panel-success">
-  <div class="panel-heading">
-    Covariance
-  </div>
-  <div class="panel-body" style="overflow-x:auto;">
-    <p>Two features with covariance far from zero are likely to contain redundant information. </p>
-    {{ covariance | safe }}
-  </div>
-</div>
