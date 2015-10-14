@@ -1,0 +1,36 @@
+{% if preview is defined %}
+    <div class="panel panel-success">
+      <div class="panel-heading">Preview</div>
+      <div class="panel-body" style="overflow-x:auto;">
+        <p>The first few lines of your data look like this.</p>
+        {{ preview | safe }}
+      </div>
+    </div>
+{% endif %}
+
+{% if mean is defined %}
+    <div class="panel panel-success">
+      <div class="panel-heading">Mean</div>
+      <div class="panel-body" style="overflow-x:auto;">
+        {{ mean | safe }}
+      </div>
+    </div>
+{% endif %}
+
+{% if median is defined %}
+    <div class="panel panel-success">
+      <div class="panel-heading">Median</div>
+      <div class="panel-body" style="overflow-x:auto;">
+        {{ median | safe }}
+      </div>
+    </div>
+{% endif %}
+
+{% if sorted_variance is defined %}
+    <div class="panel panel-success">
+      <div class="panel-heading">Variance</div>
+      <div class="panel-body" style="overflow-x:auto;">
+        {{ variance | safe }}
+      </div>
+    </div>
+{% endif %}

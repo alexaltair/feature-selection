@@ -1,0 +1,9 @@
+{% if pca is defined %}
+  <div class="panel panel-success">
+    <div class="panel-heading">Principle Component Analysis</div>
+    <div class="panel-body" style="overflow-x:auto;">
+      <p>PCA finds the optimal projection of your data onto lower dimensional spaces. This dimensionality reduction can save considerable computation time. Note that PCA won't help with overfitting.</p>
+      {{ pca | safe }}
+    </div>
+  </div>
+{% endif %}

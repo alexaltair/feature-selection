@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h1>
+    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+    Unsupervised feature selection <small>One-click analysis</small>
+  </h1>
+</div>
+
+<div class="jumbotron">
+  <p>Need help understanding your data and choosing features? Upload your data and we'll do some basic analysis!</p>
+  <p>The file must be a CSV of numerical data. We assume each row represents a data sample, and each column represents a feature. The first row will be treated as a header.</p>
+
+  <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
+
+    <label class="btn btn-default" for="my-file-selector">
+      <input type="file" name="file" id="my-file-selector" style="display:none;" onchange='$("#upload-file-info").html($(this).val().replace("C:\\fakepath\\", ""));'>
+      Choose file
+    </label>
+
+    <button type="submit" class="btn btn-primary">Upload</button>
+
+    Does this file have a header?
+    <input type="radio" name="header" value="True" checked> Yes
+    <input type="radio" name="header" value="False"> No
+
+  </form>
+  <span class='label label-info' id="upload-file-info"></span>
+</div>
