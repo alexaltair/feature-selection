@@ -19,12 +19,14 @@
 
 
 {% block content %}
+  <script type=text/javascript src="static/lib/d3.v3.js"></script>
+
   <div class="container">
     {% include 'header.html' %}
 
-    {{ show_section("Summary", "collapseSummary", 'summary.html') }}
-    {{ show_section("Feature selection", "collapseFeatureSelect", 'feature_selection.html') }}
-    {{ show_section("Dimentionality reduction", "collapseDimension", 'dimensionality_reduction.html') }}
-    {{ show_section("Clustering", "collapseClustering", 'clustering.html') }}
+    {{ show_section("+ Summary", "collapseSummary", 'summary.html') }}
+    {{ show_section("+ Feature selection", "collapseFeatureSelect", 'feature_selection.html') }}
+    {{ show_section("+ Dimentionality reduction", "collapseDimension", 'dimensionality_reduction.html') }}
+    {{ show_section("+ Clustering", "collapseClustering", 'clustering.html') }}
   </div>
 {%- endblock %}
