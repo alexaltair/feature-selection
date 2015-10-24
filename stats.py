@@ -35,10 +35,13 @@ def pca(data):
     remaining_variance = DataFrame({
         "Component": index,
         "Explained variance ratio": remaining_variance,
-    }, dtype=object)
+    }, dtype=object).T
 
-    return remaining_variance.T.to_html(header=False,
-        classes=['table', 'table-condensed', 'table-bordered'])
+    return {
+        'table': remaining_variance.to_html(header=False,
+            classes=['table', 'table-condensed', 'table-bordered']),
+        'json': remaining_variance.to_json()
+    }
 
 def mean_shift(data):
     labels = MeanShift().fit(data.values).labels_
