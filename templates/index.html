@@ -1,4 +1,9 @@
 {%- extends "bootstrap/base.html" %}
+{% block head %}
+{{super()}}
+  <link rel="shortcut icon" type="image/png" href="static/favicon.ico"/>
+{% endblock %}
+{% block title %}Feature selection{% endblock %}
 
 {% macro show_section(title, id, content) -%}
   <div class="panel panel-default">
