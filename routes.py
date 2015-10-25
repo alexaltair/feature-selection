@@ -10,8 +10,10 @@ app = Flask(__name__)
 
 Bootstrap(app)
 
-# r = redis.from_url(os.environ.get("REDIS_URL"))
-r = redis.StrictRedis(host='localhost', port=6379, db=0)
+if __name__ == "__main__":
+    r = redis.StrictRedis(host='localhost', port=6379, db=0)
+else:
+    r = redis.from_url(os.environ.get("REDIS_URL"))
 
 @app.route('/')
 def hello():
