@@ -8,14 +8,22 @@
       {{ sorted_variance | safe }}
     </div>
   </div>
+{% endif %}
 
+{% if uuid is defined %}
   <div class="panel panel-success">
     <div class="panel-heading">
       Covariance
     </div>
     <div class="panel-body" style="overflow-x:auto;">
       <p>Two features with covariance far from zero are likely to contain redundant information. </p>
-      {{ covariance | safe }}
+      <div id='covariance_load'></div>
     </div>
   </div>
+  <script type="text/javascript">
+    $('#covariance_load').load(
+      '{{ url_for('covariance_route') }}',
+      { data_uuid: {{ uuid | tojson }} }
+    );
+  </script>
 {% endif %}

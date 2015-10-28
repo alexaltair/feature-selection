@@ -59,7 +59,7 @@ def generate_results(data):
     results['mean'] = mean(data)
     results['median'] = median(data)
     results['variance'], results['sorted_variance'] = variance(data)
-    results['covariance'] = covariance(data)
+    # results['covariance'] = covariance(data)
     try:
         results['pca'] = pca(data)
     except ValueError:  # Could be "Array contains NaN or infinity."

@@ -1,10 +1,13 @@
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
+
 from cStringIO import StringIO
 import cPickle as pickle
+from uuid import uuid4
 import os, redis
+
 import pandas
-from stats import generate_results
+from stats import generate_results, covariance
 
 app = Flask(__name__)
 
@@ -23,25 +26,31 @@ def hello():
 def upload():
     data_file = request.files['file']
 
-    if request.values['header'] == 'True':
-        data = pandas.read_csv(data_file)
+    if request.form['header'] == 'True':
+        data_frame = pandas.read_csv(data_file)
     else:
-        data = pandas.read_csv(data_file, header=None)
+        data_frame = pandas.read_csv(data_file, header=None)
+
+    data_string = StringIO()
+    pickle.dump(data_frame, data_string)
+    uuid = str(uuid4())
+    data_string.seek(0)
+    r.set(uuid, data_string.read())
+    data_string.close()
+
+    results = generate_results(data_frame)
+    return render_template('index.html', uuid=uuid, **results)
 
 
-    mystring = StringIO()
-    pickle.dump(data, mystring)
-    mystring.seek(0)
-    r.set('mykey', mystring.read())
-    mystring.close()
+@app.route('/covariance', methods=['GET', 'POST'])
+def covariance_route():
+    uuid = request.form['data_uuid']
+    data_string = StringIO(r.get(uuid))
+    r.delete(uuid)
+    data_frame = pickle.load(data_string)
 
-    data = StringIO(r.get('mykey'))
-    r.delete('mykey')
-    data = pickle.load(data)
+    return covariance(data_frame)
 
-
-    results = generate_results(data)
-    return render_template('index.html', **results)
 
 if __name__ == "__main__":
     app.config['DEBUG'] = True
