@@ -8,11 +8,11 @@
 {% macro show_section(title, id, content) -%}
   <div class="panel panel-default">
     <div class="panel-heading" role="tab">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" href={{ "#" + id }} aria-expanded="false" aria-controls={{ id }}>
+      <a role="button" data-toggle="collapse" href={{ "#" + id }} aria-expanded="false" aria-controls={{ id }} style="text-decoration: none;">
+        <h4 class="panel-title">
           {{ title }}
-        </a>
-      </h4>
+        </h4>
+      </a>
     </div>
     <div class="panel-collapse collapse" role="tabpanel" id={{ id }}>
       <div class="panel-body">
