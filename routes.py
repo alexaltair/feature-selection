@@ -19,7 +19,7 @@ else:
     r = redis.from_url(os.environ.get("REDIS_URL"))
 
 @app.route('/')
-def hello():
+def root():
     return render_template('index.html')
 
 @app.route('/results', methods=['GET', 'POST'])
