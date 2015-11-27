@@ -39,7 +39,7 @@ def upload():
     data_string.close()
 
     results = generate_results(data_frame)
-    return render_template('index.html', uuid=uuid, **results)
+    return render_template('results.html', uuid=uuid, **results)
 
 
 @app.route('/covariance', methods=['GET', 'POST'])

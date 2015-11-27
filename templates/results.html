@@ -1,0 +1,46 @@
+{%- extends "app_base.html" %}
+
+{% macro show_section(title, id, content) -%}
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <a role="button" data-toggle="collapse" href={{ "#" + id }} aria-expanded="false" aria-controls={{ id }} style="text-decoration: none;">
+        <h4 class="panel-title">
+          {{ title }}
+        </h4>
+      </a>
+    </div>
+    <div class="panel-collapse collapse" role="tabpanel" id={{ id }}>
+      <div class="panel-body">
+        {% include 'result_categories/' + content %}
+      </div>
+    </div>
+  </div>
+{%- endmacro %}
+
+{% block description %}
+  <p>Results of the analysis are split into sections depending on which subtask of machine learning they're useful for. Click the sections below to see results. Some results may be big depending on your data's dimensions.</p>
+  <p>Upload another file:</p>
+
+  <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
+
+    <label class="btn btn-default" for="my-file-selector">
+      <input type="file" name="file" id="my-file-selector" style="display:none;" onchange='$("#upload-file-info").html($(this).val().replace("C:\\fakepath\\", ""));'>
+      Choose file
+    </label>
+
+    <button type="submit" class="btn btn-primary">Upload</button>
+
+    Does this file have a header?
+    <input type="radio" name="header" value="True" checked> Yes
+    <input type="radio" name="header" value="False"> No
+
+  </form>
+  <span class='label label-info' id="upload-file-info"></span>
+{%- endblock %}
+
+{% block results %}
+  {{ show_section("+ Summary", "collapseSummary", 'summary.html') }}
+  {{ show_section("+ Feature selection", "collapseFeatureSelect", 'feature_selection.html') }}
+  {{ show_section("+ Dimentionality reduction", "collapseDimension", 'dimensionality_reduction.html') }}
+  {{ show_section("+ Clustering", "collapseClustering", 'clustering.html') }}
+{%- endblock %}
