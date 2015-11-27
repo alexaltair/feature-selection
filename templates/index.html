@@ -5,4 +5,13 @@
   <p>The file must be a CSV of numerical data. We assume each row represents a data sample, and each column represents a feature. The first row will be treated as a header.</p>
 
   {% include 'upload_file.html' %}
+  <p></p>
+  <div>
+    <p>Don't have a file handy? See example results here.</p>
+    <a href="{{ url_for('sample') }}" style="text-decoration: none; color: inherit;">
+      <button class="btn btn-default">Generate sample</button>
+    </a>
+  </div>
+
+
 {%- endblock %}

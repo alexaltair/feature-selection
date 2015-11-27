@@ -7,6 +7,7 @@ from uuid import uuid4
 import os, redis
 
 import pandas
+from sklearn import datasets
 from stats import generate_results, covariance
 
 app = Flask(__name__)
@@ -17,6 +18,16 @@ if __name__ == "__main__":
     r = redis.StrictRedis(host='localhost', port=6379, db=0)
 else:
     r = redis.from_url(os.environ.get("REDIS_URL"))
+
+def write_to_redis(data_frame):
+    data_string = StringIO()
+    pickle.dump(data_frame, data_string)
+    uuid = str(uuid4())
+    data_string.seek(0)
+    r.set(uuid, data_string.read())
+    data_string.close()
+    return uuid
+
 
 @app.route('/')
 def root():
@@ -31,13 +42,16 @@ def upload():
     else:
         data_frame = pandas.read_csv(data_file, header=None)
 
-    data_string = StringIO()
-    pickle.dump(data_frame, data_string)
-    uuid = str(uuid4())
-    data_string.seek(0)
-    r.set(uuid, data_string.read())
-    data_string.close()
+    uuid = write_to_redis(data_frame)
+    results = generate_results(data_frame)
+    return render_template('results.html', uuid=uuid, **results)
 
+@app.route('/sample', methods=['GET', 'POST'])
+def sample():
+    iris = datasets.load_iris()
+    data_frame = pandas.DataFrame(iris.data, columns=iris.feature_names)
+
+    uuid = write_to_redis(data_frame)
     results = generate_results(data_frame)
     return render_template('results.html', uuid=uuid, **results)
 
