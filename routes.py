@@ -8,11 +8,13 @@ import os, redis
 
 import pandas
 from sklearn import datasets
-from stats import generate_results, covariance
+import stats
+from stats import generate_results
 
 app = Flask(__name__)
 
 Bootstrap(app)
+
 
 if __name__ == "__main__":
     r = redis.StrictRedis(host='localhost', port=6379, db=0)
@@ -27,6 +29,11 @@ def write_to_redis(data_frame):
     r.set(uuid, data_string.read())
     data_string.close()
     return uuid
+
+def read_from_redis(uuid):
+    data_string = StringIO(r.get(uuid))
+    # r.delete(uuid)
+    return pickle.load(data_string)
 
 
 @app.route('/')
@@ -56,14 +63,19 @@ def sample():
     return render_template('results.html', uuid=uuid, **results)
 
 
-@app.route('/covariance', methods=['GET', 'POST'])
-def covariance_route():
-    uuid = request.form['data_uuid']
-    data_string = StringIO(r.get(uuid))
-    r.delete(uuid)
-    data_frame = pickle.load(data_string)
+def return_route_function(result):
+    def route_function():
+        uuid = request.form['data_uuid']
+        data_frame = read_from_redis(uuid)
+        return getattr(stats, result)(data_frame)
+    route_function.__name__ = result + '_route'
+    return route_function
 
-    return covariance(data_frame)
+for result in ['covariance', 'sorted_variance']:
+    app.add_url_rule(
+        '/' + result,
+        view_func=return_route_function(result),
+        methods=['GET', 'POST'])
 
 
 if __name__ == "__main__":

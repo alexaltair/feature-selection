@@ -15,15 +15,13 @@ def median(data):
         classes=['table', 'table-condensed', 'table-bordered'])
 
 def variance(data):
-    data_variance = data.var()
-    var_table = data_variance.to_frame().T.to_html(index=False,
+    return data.var().to_frame().T.to_html(index=False,
         classes=['table', 'table-condensed', 'table-bordered'])
 
-    sort_var_table = data_variance.sort_values().to_frame().T.to_html(
+def sorted_variance(data):
+    return data.var().sort_values().to_frame().T.to_html(
         index=False,
         classes=['table', 'table-condensed', 'table-bordered'])
-
-    return var_table, sort_var_table
 
 def covariance(data):
     return data.cov().to_html(
@@ -58,8 +56,7 @@ def generate_results(data):
     results['preview'] = head(data)
     results['mean'] = mean(data)
     results['median'] = median(data)
-    results['variance'], results['sorted_variance'] = variance(data)
-    # results['covariance'] = covariance(data)
+    results['variance'] = variance(data)
     try:
         results['pca'] = pca(data)
     except ValueError:  # Could be "Array contains NaN or infinity."
