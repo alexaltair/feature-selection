@@ -4,18 +4,22 @@ from sklearn.cluster import MeanShift, DBSCAN
 
 from results_routes import result_route
 
-def head(data, n=10):
+@result_route
+def preview(data, n=10):
     return data.iloc[:n].to_html(index=False,
         classes=['table', 'table-condensed', 'table-bordered', 'table-striped'])
 
+@result_route
 def mean(data):
     return data.mean().to_frame().T.to_html(index=False,
         classes=['table', 'table-condensed', 'table-bordered'])
 
+@result_route
 def median(data):
     return data.median().to_frame().T.to_html(index=False,
         classes=['table', 'table-condensed', 'table-bordered'])
 
+@result_route
 def variance(data):
     return data.var().to_frame().T.to_html(index=False,
         classes=['table', 'table-condensed', 'table-bordered'])
@@ -57,10 +61,6 @@ def dbscan(data):
 def generate_results(data):
     results = {}
 
-    results['preview'] = head(data)
-    results['mean'] = mean(data)
-    results['median'] = median(data)
-    results['variance'] = variance(data)
     try:
         results['pca'] = pca(data)
     except ValueError:  # Could be "Array contains NaN or infinity."
