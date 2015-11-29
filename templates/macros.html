@@ -1,0 +1,17 @@
+{% macro result(title, style, description, result_name) -%}
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      {{ title }}
+    </div>
+    <div class="panel-body" {{ style }}>
+      <p>{{ description }}</p>
+      <div id='{{ result_name }}_load'></div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $('#{{ result_name }}_load').load(
+      '{{ url_for(result_name) }}',
+      { data_uuid: {{ uuid | tojson }} }
+    );
+  </script>
+{%- endmacro %}
