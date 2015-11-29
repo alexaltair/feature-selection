@@ -2,6 +2,8 @@ from pandas import Series, DataFrame
 from sklearn.decomposition import PCA
 from sklearn.cluster import MeanShift, DBSCAN
 
+from results_routes import result_route
+
 def head(data, n=10):
     return data.iloc[:n].to_html(index=False,
         classes=['table', 'table-condensed', 'table-bordered', 'table-striped'])
@@ -18,11 +20,13 @@ def variance(data):
     return data.var().to_frame().T.to_html(index=False,
         classes=['table', 'table-condensed', 'table-bordered'])
 
+@result_route
 def sorted_variance(data):
     return data.var().sort_values().to_frame().T.to_html(
         index=False,
         classes=['table', 'table-condensed', 'table-bordered'])
 
+@result_route
 def covariance(data):
     return data.cov().to_html(
         classes=['table', 'table-condensed', 'table-bordered', 'table-striped'])

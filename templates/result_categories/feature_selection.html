@@ -10,7 +10,7 @@
   </div>
   <script type="text/javascript">
     $('#sorted_variance_load').load(
-      '{{ url_for('sorted_variance_route') }}',
+      '{{ url_for('sorted_variance') }}',
       { data_uuid: {{ uuid | tojson }} }
     );
   </script>
@@ -28,7 +28,7 @@
   </div>
   <script type="text/javascript">
     $('#covariance_load').load(
-      '{{ url_for('covariance_route') }}',
+      '{{ url_for('covariance') }}',
       { data_uuid: {{ uuid | tojson }} }
     );
   </script>
