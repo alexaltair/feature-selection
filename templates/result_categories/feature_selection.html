@@ -1,15 +1,35 @@
-{% from 'macros.html' import result with context %}
+{% if uuid is defined %}
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      Low variance
+    </div>
+    <div class="panel-body" style="overflow-x:auto;">
+      <p>Features with low variance are less likely to contain useful information. Consider removing them, especially if they have zero variance. This is less likely to be true if your features are on different scales; for example, if one features is in years, and another feature is in millimeters.</p>
+      <div id='sorted_variance_load'></div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $('#sorted_variance_load').load(
+      '{{ url_for('sorted_variance') }}',
+      { data_uuid: {{ uuid | tojson }} }
+    );
+  </script>
+{% endif %}
 
-{{ result(
-  "Low variance",
-  "style='overflow-x:auto;'",
-  "Features with low variance are less likely to contain useful information. Consider removing them, especially if they have zero variance. This is less likely to be true if your features are on different scales; for example, if one features is in years, and another feature is in millimeters.",
-  "sorted_variance"
-) }}
-
-{{ result(
-  "Covariance",
-  "style='overflow-x:auto;'",
-  "Two features with covariance far from zero are likely to contain redundant information.",
-  "covariance"
-) }}
+{% if uuid is defined %}
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      Covariance
+    </div>
+    <div class="panel-body" style="overflow-x:auto;">
+      <p>Two features with covariance far from zero are likely to contain redundant information. </p>
+      <div id='covariance_load'></div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $('#covariance_load').load(
+      '{{ url_for('covariance') }}',
+      { data_uuid: {{ uuid | tojson }} }
+    );
+  </script>
+{% endif %}
