@@ -56,10 +56,10 @@ def pca(data):
 def mean_shift(data):
     labels = set(MeanShift().fit(data.values).labels_)
     num_labels = len(labels) - (1 if -1 in labels else 0)
-    return str(num_labels)
+    return json.dumps(num_labels)
 
 @result_route
 def dbscan(data):
     labels = set(DBSCAN().fit(data.values).labels_)
     num_labels = len(labels) - (1 if -1 in labels else 0)
-    return str(num_labels)
+    return json.dumps(num_labels)
