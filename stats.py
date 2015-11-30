@@ -1,3 +1,5 @@
+import json
+
 from pandas import Series, DataFrame
 from sklearn.decomposition import PCA
 from sklearn.cluster import MeanShift, DBSCAN
@@ -35,6 +37,7 @@ def covariance(data):
     return data.cov().to_html(
         classes=['table', 'table-condensed', 'table-bordered', 'table-striped'])
 
+@result_route
 def pca(data):
     remaining_variance = PCA().fit(data).explained_variance_ratio_
     index = range(1, len(remaining_variance)+1)
@@ -43,11 +46,11 @@ def pca(data):
         "Explained variance ratio": remaining_variance,
     }, dtype=object).T
 
-    return {
-        'table': remaining_variance.to_html(header=False,
+    return json.dumps({
+        'html': remaining_variance.to_html(header=False,
             classes=['table', 'table-condensed', 'table-bordered']),
-        'json': remaining_variance.to_json()
-    }
+        'json': remaining_variance.to_dict()
+    })
 
 @result_route
 def mean_shift(data):
@@ -60,11 +63,3 @@ def dbscan(data):
     labels = set(DBSCAN().fit(data.values).labels_)
     num_labels = len(labels) - (1 if -1 in labels else 0)
     return str(num_labels)
-
-
-def generate_results(data):
-    results = {}
-
-    results['pca'] = pca(data)
-
-    return results

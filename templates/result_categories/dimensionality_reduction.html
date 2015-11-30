@@ -1,14 +1,21 @@
-{% if pca is defined %}
-  <div class="panel panel-success">
-    <div class="panel-heading">Principle Component Analysis</div>
-    <div class="panel-body" style="overflow-x:auto;">
-      <p>PCA finds the optimal projection of your data onto lower dimensional spaces. This dimensionality reduction can save considerable computation time. Note that PCA won't help with overfitting.</p>
-      {{ pca['table'] | safe }}
-      <div class='pca_chart'></div>
-    </div>
+<div class="panel panel-success">
+  <div class="panel-heading">Principle Component Analysis</div>
+  <div class="panel-body" style="overflow-x:auto;">
+    <p>PCA finds the optimal projection of your data onto lower dimensional spaces. This dimensionality reduction can save considerable computation time. Note that PCA won't help with overfitting.</p>
+    <div id='pca_load'></div>
+    <div class='pca_chart'></div>
   </div>
+</div>
 
-  <link href='static/bar_chart.css' rel="stylesheet"></link>
-  <script type='text/javascript' src='static/pca_chart.js'></script>
-  <script type="text/javascript">pca_chart({{ pca['json'] | safe }});</script>
-{% endif %}
+<script type='text/javascript' src='static/pca_chart.js'></script>
+<script type="text/javascript">
+  $.post(
+    '{{ url_for("pca") }}',
+    { 'data_uuid': {{ uuid | tojson }} },
+    function(data) {
+      $('#pca_load').append(data['html']);
+      pca_chart(data['json']);
+    },
+    'json'
+  );
+</script>

@@ -4,7 +4,6 @@ import pandas
 from sklearn import datasets
 
 import redis_conn
-from stats import generate_results
 
 
 # Many more routes defined dynamically in stats.py
@@ -23,8 +22,7 @@ def upload():
         data_frame = pandas.read_csv(data_file, header=None)
 
     uuid = redis_conn.write_to_redis(data_frame)
-    results = generate_results(data_frame)
-    return render_template('results.html', uuid=uuid, **results)
+    return render_template('results.html', uuid=uuid)
 
 @current_app.route('/sample', methods=['GET', 'POST'])
 def sample():
@@ -32,5 +30,4 @@ def sample():
     data_frame = pandas.DataFrame(iris.data, columns=iris.feature_names)
 
     uuid = redis_conn.write_to_redis(data_frame)
-    results = generate_results(data_frame)
-    return render_template('results.html', uuid=uuid, **results)
+    return render_template('results.html', uuid=uuid)
