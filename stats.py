@@ -49,29 +49,22 @@ def pca(data):
         'json': remaining_variance.to_json()
     }
 
+@result_route
 def mean_shift(data):
-    labels = MeanShift().fit(data.values).labels_
-    return len(set(labels)) - (1 if -1 in labels else 0)
+    labels = set(MeanShift().fit(data.values).labels_)
+    num_labels = len(labels) - (1 if -1 in labels else 0)
+    return str(num_labels)
 
+@result_route
 def dbscan(data):
-    labels = DBSCAN().fit(data.values).labels_
-    return len(set(labels)) - (1 if -1 in labels else 0)
+    labels = set(DBSCAN().fit(data.values).labels_)
+    num_labels = len(labels) - (1 if -1 in labels else 0)
+    return str(num_labels)
 
 
 def generate_results(data):
     results = {}
 
-    try:
-        results['pca'] = pca(data)
-    except ValueError:  # Could be "Array contains NaN or infinity."
-        pass
-    try:
-        results['mean_shift'] = mean_shift(data)
-    except ValueError:  # Could be "Array contains NaN or infinity."
-        pass
-    try:
-        results['dbscan'] = dbscan(data)
-    except ValueError:  # Could be "Array contains NaN or infinity."
-        pass
+    results['pca'] = pca(data)
 
     return results

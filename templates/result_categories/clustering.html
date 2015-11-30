@@ -1,15 +1,25 @@
-{% if dbscan is defined %}
-  <div class="panel panel-success">
-    <div class="panel-heading">Mean shift</div>
-    <div class="panel-body">
-      <p>The mean shift clustering algorithm detects <strong>{{ mean_shift }}</strong> cluster(s) in the data.</p>
-    </div>
+<div class="panel panel-success">
+  <div class="panel-heading">Mean shift</div>
+  <div class="panel-body">
+    <p>The mean shift clustering algorithm detects <strong id='mean_shift_load'></strong> cluster(s) in the data.</p>
   </div>
+</div>
+<script type="text/javascript">
+  $('#mean_shift_load').load(
+    '{{ url_for("mean_shift") }}',
+    { data_uuid: {{ uuid | tojson }} }
+  );
+</script>
 
-  <div class="panel panel-success">
-    <div class="panel-heading">DBSCAN</div>
-    <div class="panel-body">
-      <p>The DBSCAN clustering algorithm detects <strong>{{ dbscan }}</strong> cluster(s) in the data.</p>
-    </div>
+<div class="panel panel-success">
+  <div class="panel-heading">DBSCAN</div>
+  <div class="panel-body">
+    <p>The DBSCAN clustering algorithm detects <strong id='dbscan_load'></strong> cluster(s) in the data.</p>
   </div>
-{% endif %}
+</div>
+<script type="text/javascript">
+  $('#dbscan_load').load(
+    '{{ url_for("dbscan") }}',
+    { data_uuid: {{ uuid | tojson }} }
+  );
+</script>
